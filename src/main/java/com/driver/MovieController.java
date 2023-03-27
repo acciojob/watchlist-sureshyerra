@@ -27,7 +27,7 @@ public class MovieController {
         return new ResponseEntity<>(ans, HttpStatus.CREATED);
     }
     @PutMapping("/add-movie-director-pair")
-    public ResponseEntity<String> addMovieDirectorPair(@RequestParam("movieName")String movieName,@RequestParam("directorname")String directorName){
+    public ResponseEntity<String> addMovieDirectorPair(@RequestParam("movieName")String movieName,@RequestParam("directorName")String directorName){
         String ans = movieservice.addMovieDirectorPair(movieName, directorName);
         return new ResponseEntity<>(ans, HttpStatus.CREATED);
     }
@@ -42,22 +42,24 @@ public class MovieController {
         return new ResponseEntity<>(director,HttpStatus.CREATED);
     }
     @DeleteMapping("/delete-director-by-name")
-    public ResponseEntity<String>deleteDirectorByName(@RequestParam("/directorname")String directorname){
+    public ResponseEntity<String>deleteDirectorByName(@RequestParam("directorname")String directorname){
         String ans = movieservice.deleteDirectorByName(directorname);
         return new ResponseEntity<>(ans,HttpStatus.CREATED);
 
     }
+    @GetMapping("/get-movies-by-director-name/{director}")
+    public ResponseEntity<List<String>> getMoviesByDirectorName(@PathVariable("director")String name){
+        List<String> list = movieservice.getMoviesByDirectorName(name);
+        return new ResponseEntity<>(list,HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/delete-all-directors")
 
     public ResponseEntity<String >deleteAllDirectors(){
         String ans = movieservice.removeeverything();
         return new ResponseEntity<>(ans,HttpStatus.CREATED);
     }
-    @GetMapping("/get-movies-by-director-name/{director}")
-    public ResponseEntity<List<String>>  getMoviesByDirectorName(@PathVariable("directorName") String directorname){
-        return new ResponseEntity<>(movieservice.moviesList(directorname),HttpStatus.CREATED);
 
-    }
     @GetMapping("/get-all-movies")
     public ResponseEntity<List<Movie>> findAllMovies(){
         return new ResponseEntity<>(movieservice.allmoviesList(),HttpStatus.CREATED);

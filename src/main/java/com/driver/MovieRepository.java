@@ -77,10 +77,18 @@ public class MovieRepository {
         pairDb.clear();
         return "sucessfully removed";
     }
-    public List<String> moviesList(String directorname){
-        List<String> movies = pairDb.get(directorname);
-        return  movies;
+    public List<String> getmovies(String directorName){
+        if(pairDb.containsKey(directorName)) {
+            return pairDb.get(directorName);
+        }
+        return null;
     }
+
+
+
+
+
+
     public List<Movie> allmovies(){
         List<Movie> movies = new ArrayList<>();
         for(Movie movie : movieHashMap.values()){

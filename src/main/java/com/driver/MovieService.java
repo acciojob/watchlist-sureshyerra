@@ -34,7 +34,7 @@ public class MovieService {
     public String removeeverything(){
         return movierepository.removeEverything();
     }
-    public List<Movie> moviesList(String directorname){
+    public List<String> moviesList(String directorname){
         return movierepository.moviesList(directorname);
     }
     public List<Movie> allmoviesList(){

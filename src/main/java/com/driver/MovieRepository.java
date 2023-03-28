@@ -58,9 +58,11 @@ public class MovieRepository {
 
         directorHashMap.remove(directorName);
 
-        List<String > directorlist = pairDb.get(directorName);
-        for (String s : directorlist){
-            movieHashMap.remove(s);
+        if(pairDb.containsKey(directorName)){
+            List<String> movies = pairDb.get(directorName);
+            for (String s : movies){
+                movieHashMap.remove(s);
+            }
         }
         pairDb.remove(directorName);
         return "director removed successfully";

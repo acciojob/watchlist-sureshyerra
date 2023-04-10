@@ -1,5 +1,8 @@
 package com.driver;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.spi.LoggerFactoryBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,15 +13,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/movies")
 public class MovieController {
-    @Autowired
-    MovieService movieService;
+
+
+
+    MovieService movieService = new MovieService();
+
 
     @PostMapping("/add-movie")
     public ResponseEntity<String> addMovie(@RequestBody Movie movie){
 
-        String ans = movieService.addMovie(movie);
+            String ans = movieService.addMovie(movie);
+            return new ResponseEntity<>(ans, HttpStatus.CREATED);
 
-        return new ResponseEntity<>(ans, HttpStatus.CREATED);
     }
     @PostMapping("/add-director")
     public ResponseEntity<String> addDirector(@RequestBody Director director){

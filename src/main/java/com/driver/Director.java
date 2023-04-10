@@ -1,5 +1,12 @@
 package com.driver;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+
+
+
 public class Director {
     private String name;
     private  int numberOfMovies;

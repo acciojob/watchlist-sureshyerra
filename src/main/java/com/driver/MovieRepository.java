@@ -1,5 +1,7 @@
 package com.driver;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ public class MovieRepository {
      HashMap<String,Director> directorHashMap = new HashMap<>();
      HashMap<String,Movie> movieHashMap = new HashMap<>();
     public String addMovie(Movie movie){
+
         String key = movie.getName();
         movieHashMap.put(key,movie);
 
@@ -24,18 +27,12 @@ public class MovieRepository {
         return "Director Added";
     }
     public String   addMovieDirectorPair(String movieName,String directorName){
-      if(movieDirectorHashMap.containsKey(directorName)){
-          List<String> movies = movieDirectorHashMap.get(directorName);
-          movies.add(movieName);
-          movieDirectorHashMap.put(directorName,movies);
-          return "Movie and Director Paired";
-      }
-      else {
-          List<String> movies = new ArrayList<>();
-          movies.add(movieName);
-          movieDirectorHashMap.put(directorName,movies);
-          return "Movie and Director Paired";
-      }
+        List<String> movies = movieDirectorHashMap.getOrDefault(directorName,new ArrayList<>());
+        movies.add(movieName);
+        movieDirectorHashMap.put(directorName,movies);
+        return "movie pair added";
+
+
 
     }
     public String deleteDirectorByName(String directorName){
@@ -75,16 +72,20 @@ public class MovieRepository {
     }
 
     public Movie getMovieByName(String name){
-        if (movieHashMap.containsKey(name)){
-            Movie movie = movieHashMap.get(name);
-            return movie;
-        }
-        return null;
+       for (String s : movieHashMap.keySet()){
+           if(s.equals(name)){
+               return movieHashMap.get(s);
+           }
+       }
+       return null;
     }
 
     public Director getDirectorByName(String name){
-        if(directorHashMap.containsKey(name))
-            return directorHashMap.get(name);
+        for(String s : directorHashMap.keySet()){
+            if(s.equals(name)){
+                return directorHashMap.get(s);
+            }
+        }
         return null;
     }
 

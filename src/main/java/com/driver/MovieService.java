@@ -10,7 +10,8 @@ public class MovieService {
 
     MovieRepository movieRepository = new MovieRepository();
     public String addMovie(Movie movie){
-        return movieRepository.addMovie(movie);
+        String ans =  movieRepository.addMovie(movie);
+        return ans;
     }
     public String addDirector(Director director){
         return movieRepository.addDirector(director);

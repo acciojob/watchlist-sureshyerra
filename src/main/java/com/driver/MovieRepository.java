@@ -15,42 +15,41 @@ public class MovieRepository {
      HashMap<String,Movie> movieHashMap = new HashMap<>();
     public String addMovie(Movie movie){
 
-        String key = movie.getName();
-        movieHashMap.put(key,movie);
+
+        movieHashMap.put(movie.getName(),movie);
 
         return "Movie Added";
     }
     public String  addDirector(Director director){
-        String key = director.getName();
-        directorHashMap.put(key,director);
+
+        directorHashMap.put(director.getName(),director);
 
         return "Director Added";
     }
     public String   addMovieDirectorPair(String movieName,String directorName){
-        List<String> movies = movieDirectorHashMap.getOrDefault(directorName,new ArrayList<>());
-        movies.add(movieName);
+        if(!movieDirectorHashMap.containsKey(directorName)){
+            movieDirectorHashMap.put(directorName,new ArrayList<>());
+        }
+        movieDirectorHashMap.get(directorName).add(movieName);
 
-        movieDirectorHashMap.put(directorName,movies);
         return "movie pair added";
 
 
 
     }
     public String deleteDirectorByName(String directorName){
-        directorHashMap.remove(directorName);
-        if(movieDirectorHashMap.containsKey(directorName)){
-            List<String> students = movieDirectorHashMap.get(directorName);
-            for(String s : students) {
-                movieHashMap.remove(s);
-            }
+
+        for (String movie:movieDirectorHashMap.get(directorName)){
+            movieHashMap.remove(movie);
         }
+        directorHashMap.remove(directorName);
         movieDirectorHashMap.remove(directorName);
         return "deleted";
     }
     public String deleteAllDirectors(){
-        for(List<String> s : movieDirectorHashMap.values()){
-            for(String students : s){
-                movieHashMap.remove(students);
+        for (List<String> s : movieDirectorHashMap.values()){
+            for (String movie : s){
+                movieHashMap.remove(movie);
             }
         }
         directorHashMap.clear();
@@ -58,10 +57,7 @@ public class MovieRepository {
         return "Deleted";
     }
     public List<String> getMoviesByDirectorName(String directorName){
-        if(movieDirectorHashMap.containsKey(directorName)){
-            return movieDirectorHashMap.get(directorName);
-        }
-        return new ArrayList<>();
+        return movieDirectorHashMap.get(directorName);
 
     }
     public List<String> findAllMovies(){

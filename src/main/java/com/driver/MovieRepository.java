@@ -69,21 +69,11 @@ public class MovieRepository {
     }
 
     public Movie getMovieByName(String name){
-       for (String s : movieHashMap.keySet()){
-           if(s.equals(name)){
-               return movieHashMap.get(s);
-           }
-       }
-       return null;
+     return movieHashMap.get(name);
     }
 
     public Director getDirectorByName(String name){
-        for(String s : directorHashMap.keySet()){
-            if(s.equals(name)){
-                return directorHashMap.get(s);
-            }
-        }
-        return null;
+        return directorHashMap.get(name);
     }
 
 }
